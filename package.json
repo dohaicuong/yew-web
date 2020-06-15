@@ -1,0 +1,38 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "dohaicuong <beatyshot@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build:js": "rollup -c",
+    "build:rs": "cargo web deploy --release",
+    "build:css": "tailwindcss build src/tailwind.css -o static/main.css",
+    "build:style": "run-s build:css",
+    "build:copy": "cp target/deploy/main.css release/ && cp target/deploy/main.wasm release/ && cp target/deploy/index.html release/ && cp target/deploy/favicon.ico release/",
+    "build": "run-s clean:deploy build:rs build:js build:style build:copy",
+    "clean:deploy": "rm -rf /release",
+    "prod": "run-s build serve",
+    "serve": "serve -p 8080 release",
+    "watch:rs": "cargo web start --release",
+    "test": "echo \"Error: no tests!\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "autoprefixer": "^9.8.0",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^7.0.32",
+    "postcss-cli": "^7.1.1",
+    "rollup": "^2.16.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-wasm": "^3.0.0",
+    "serve": "^11.3.2"
+  },
+  "dependencies": {
+    "tailwindcss": "^1.4.6"
+  }
+}
